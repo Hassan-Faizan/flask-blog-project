@@ -11,12 +11,10 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import CreatePostForm, SignupForm, LoginForm, CommentForm
 from flask_gravatar import Gravatar
-import os
-from dotenv import load_dotenv
-load_dotenv("C:/Users/hp/OneDrive/Python/.env.txt")
+
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv('FLASK_CONFIG_SECRET_KEY')
+app.config['SECRET_KEY'] = '8BYkEfBA6Oi34aDi231hBXox7C0sKR6b'
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app)
@@ -72,6 +70,9 @@ class Comment(db.Model):
     parent_post = relationship("BlogPost", back_populates="comments")
     text = db.Column(db.Text, nullable=False)
 
+
+# db.create_all()
+db.session.commit()
 
 def admin_only(func):
     @wraps(func)
