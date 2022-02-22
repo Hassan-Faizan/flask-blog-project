@@ -71,9 +71,6 @@ class Comment(db.Model):
     text = db.Column(db.Text, nullable=False)
 
 
-# db.create_all()
-db.session.commit()
-
 def admin_only(func):
     @wraps(func)
     def decorated_view(*args, **kwargs):
