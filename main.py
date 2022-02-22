@@ -1,3 +1,4 @@
+import os
 from functools import wraps
 
 from flask import Flask, render_template, redirect, url_for, request, flash, abort
@@ -14,13 +15,14 @@ from flask_gravatar import Gravatar
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6Oi34aDi231hBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app)
 
 # CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+# 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL', 'sqlite:///blog.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
